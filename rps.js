@@ -92,7 +92,7 @@ function handleResult(winner) {
 }
 
 function gameOver() {
-  // write something to handle final result and winner!?
+  // write something to handle final result and winner?
 }
 
 function checkWinner() {
