@@ -9,7 +9,10 @@ function getComputerChoice() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  if (playerScore < 5 && computerScore < 5) {
+  if (playerScore >= 5 || computerScore >= 5) {
+    checkWinner();
+    return;
+  } else {
     if (playerSelection === computerSelection) {
       return "It's a tie.";
     } else if (playerSelection === "rock" && computerSelection === "scissors") {
@@ -31,8 +34,6 @@ function playRound(playerSelection, computerSelection) {
       computerScore++;
       return "Computer wins";
     }
-  } else {
-    checkWinner();
   }
 }
 
@@ -42,12 +43,12 @@ rock.addEventListener("click", () => {
   let resultElement = document.querySelector(".result");
   if (result === "Player wins") {
     finalResult = handleResult("Player");
-    resultElement.textContent = `Result: ${finalResult}`;
+    resultElement.textContent = `This round: ${finalResult}`;
   } else if (result === "Computer wins") {
     finalResult = handleResult("Computer");
-    resultElement.textContent = `Result: ${finalResult}`;
+    resultElement.textContent = `This round: ${finalResult}`;
   } else {
-    resultElement.textContent = "Result: It's a TIE!";
+    resultElement.textContent = "This round: It's a TIE!";
   }
 });
 
@@ -57,12 +58,12 @@ paper.addEventListener("click", () => {
   let resultElement = document.querySelector(".result");
   if (result === "Player wins") {
     finalResult = handleResult("Player");
-    resultElement.textContent = `Result: ${finalResult}`;
+    resultElement.textContent = `This round: ${finalResult}`;
   } else if (result === "Computer wins") {
     finalResult = handleResult("Computer");
-    resultElement.textContent = `Result: ${finalResult}`;
+    resultElement.textContent = `This round: ${finalResult}`;
   } else {
-    resultElement.textContent = "Result: It's a TIE!";
+    resultElement.textContent = "This round: It's a TIE!";
   }
 });
 
@@ -88,6 +89,10 @@ function handleResult(winner) {
   let userScore = document.querySelector(".playerScore");
   userScore.textContent = `Player score: ${playerScore}`;
 
+  if (playerScore >= 5 || computerScore >= 5) {
+    checkWinner();
+  }
+
   return `${winner} WINS!!`;
 }
 
@@ -100,6 +105,7 @@ function checkWinner() {
   let resultElement = document.querySelector(".finalResult");
   resultElement.textContent = `Final result: ${winner} WINS`;
   let buttons = document.querySelectorAll("button");
+
   buttons.forEach((button) => {
     button.disabled = true;
   });
